@@ -2,7 +2,7 @@
 
 ![Cloud Build status](https://badger-tcppdqobjq-ew.a.run.app/build/status?project=examples-331911&id=55a9baae-ec58-4762-afce-b2274da03f5f "Cloud Build status")
 
-Module for creating the log buckets, sinks, services, SLOs, and alerts.
+Module for creating the log buckets, log sinks, services, SLOs, and alerts.
 
 This module supports creating:
 
