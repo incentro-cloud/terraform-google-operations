@@ -20,3 +20,9 @@ variable "services" {
   description = "The custom services."
   default     = []
 }
+
+variable "dashboards" {
+  type        = any
+  description = "The dashboards."
+  default     = []
+}

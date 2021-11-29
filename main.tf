@@ -68,3 +68,22 @@ module "services" {
   project_id = var.project_id
   services   = local.services
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# DASHBOARDS
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  dashboards = [
+    for dashboard in var.dashboards : {
+      dashboard_json      = dashboard.dashboard_json
+    }
+  ]
+}
+
+module "dashboards" {
+  source = "./modules/dashboards"
+
+  project_id = var.project_id
+  dashboards = local.dashboards
+}

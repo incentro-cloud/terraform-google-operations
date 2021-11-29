@@ -35,3 +35,8 @@ output "services" {
   value       = module.services.services
   description = "The custom services."
 }
+
+output "dashboards_ids" {
+  value       = [for dashboard in module.dashboards.dashboards : dashboard.id]
+  description = "The identifiers of the dashboards."
+}

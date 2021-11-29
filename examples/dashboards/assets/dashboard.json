@@ -1,0 +1,10 @@
+{
+  "displayName": "Dashboard",
+  "gridLayout": {
+    "widgets": [
+      {
+        "blank": {}
+      }
+    ]
+  }
+}

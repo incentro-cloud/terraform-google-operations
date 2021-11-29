@@ -57,5 +57,11 @@ module "operations" {
       display_name = "Custom service"
     }
   ]
+
+  dashboards = [
+    {
+      dashboard_json = file("./assets/dashboard.json")
+    }
+  ]
 }
 ```
