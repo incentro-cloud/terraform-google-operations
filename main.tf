@@ -76,7 +76,7 @@ module "services" {
 locals {
   dashboards = [
     for dashboard in var.dashboards : {
-      dashboard_json      = dashboard.dashboard_json
+      dashboard_json = dashboard.dashboard_json
     }
   ]
 }
@@ -86,4 +86,31 @@ module "dashboards" {
 
   project_id = var.project_id
   dashboards = local.dashboards
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# SLOs
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  slos = [
+    for slo in var.slos : {
+      service             = slo.service
+      slo_id              = lookup(slo, "slo_id", null)
+      display_name        = lookup(slo, "display_name", null)
+      goal                = slo.goal
+      rolling_period_days = lookup(slo, "rolling_period_days", null)
+      calendar_period     = lookup(slo, "calendar_period", null)
+      basic_sli           = lookup(slo, "basic_sli", null)
+      request_based_sli   = lookup(slo, "request_based_sli", null)
+      windows_based_sli   = lookup(slo, "windows_based_sli", null)
+    }
+  ]
+}
+
+module "slos" {
+  source = "./modules/slos"
+
+  project_id = var.project_id
+  slos       = local.slos
 }

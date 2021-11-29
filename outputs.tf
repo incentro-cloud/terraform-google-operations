@@ -40,3 +40,8 @@ output "dashboards_ids" {
   value       = [for dashboard in module.dashboards.dashboards : dashboard.id]
   description = "The identifiers of the dashboards."
 }
+
+output "slos" {
+  value       = module.slos.slos
+  description = "The SLOs."
+}

@@ -26,3 +26,9 @@ variable "dashboards" {
   description = "The dashboards."
   default     = []
 }
+
+variable "slos" {
+  type        = any
+  description = "The SLOs."
+  default     = []
+}
