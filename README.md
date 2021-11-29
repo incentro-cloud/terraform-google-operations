@@ -16,7 +16,8 @@ This module supports creating:
 
 ```hcl
 module "operations" {
-  source = "../../"
+  source  = "incentro-cloud/operations/google"
+  version = "~> 0.1"
 
   project_id = var.project_id
 
