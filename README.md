@@ -50,5 +50,12 @@ module "operations" {
       unique_writer_identity = true
     },
   ]
+
+  services = [
+    {
+      service_id   = "custom-service"
+      display_name = "Custom service"
+    }
+  ]
 }
 ```
