@@ -19,15 +19,19 @@ output "sinks_names" {
 }
 
 output "sinks_unique_writer_identities" {
-  value = [for x in module.sinks.sinks : x.writer_identity]
+  value       = [for x in module.sinks.sinks : x.writer_identity]
   description = "The writer identities of the log sinks."
 }
 
 output "sinks_names_unique_writer_identities" {
   value = {
-    names            = [for x in module.sinks.sinks : x.name]
+    names                    = [for x in module.sinks.sinks : x.name]
     unique_writer_identities = [for x in module.sinks.sinks : x.writer_identity]
   }
-
   description = "The names and writer identities of the log sinks."
+}
+
+output "services" {
+  value       = module.services.services
+  description = "The custom services."
 }

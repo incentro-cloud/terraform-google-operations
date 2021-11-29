@@ -9,12 +9,12 @@
 
 locals {
   buckets = [
-    for x in var.buckets : {
-      bucket_id      = x.bucket_id
+    for bucket in var.buckets : {
+      bucket_id      = bucket.bucket_id
       project        = var.project_id
-      description    = lookup(x, "description", null)
-      location       = lookup(x, "location", "global")
-      retention_days = lookup(x, "retention_days", 90)
+      description    = lookup(bucket, "description", null)
+      location       = lookup(bucket, "location", "global")
+      retention_days = lookup(bucket, "retention_days", 90)
     }
   ]
 }
@@ -32,11 +32,11 @@ module "buckets" {
 
 locals {
   sinks = [
-    for x in var.sinks : {
-      name                   = x.name
-      destination            = x.destination
-      filter                 = lookup(x, "filter", null)
-      unique_writer_identity = lookup(x, "unique_writer_identity", true)
+    for sink in var.sinks : {
+      name                   = sink.name
+      destination            = sink.destination
+      filter                 = lookup(sink, "filter", null)
+      unique_writer_identity = lookup(sink, "unique_writer_identity", true)
     }
   ]
 }
@@ -46,4 +46,25 @@ module "sinks" {
 
   project_id = var.project_id
   sinks      = local.sinks
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# CUSTOM SERVICES
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  services = [
+    for service in var.services : {
+      service_id    = lookup(service, "service_id", null)
+      display_name  = lookup(service, "display_name", null)
+      resource_name = lookup(service, "resource_name", null)
+    }
+  ]
+}
+
+module "services" {
+  source = "./modules/services"
+
+  project_id = var.project_id
+  services   = local.services
 }

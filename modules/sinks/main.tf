@@ -27,7 +27,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "google_logging_project_sink" "sinks" {
-  for_each               = { for x in var.sinks : x.name => x }
+  for_each               = { for sink in var.sinks : sink.name => sink }
   name                   = each.value.name
   project                = var.project_id
   destination            = each.value.destination
