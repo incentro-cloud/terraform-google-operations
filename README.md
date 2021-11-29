@@ -12,7 +12,7 @@ This module supports creating:
 - SLOs (In progress)
 - Alerts (In progress)
 
-## Usage
+## Example usage
 
 ```hcl
 module "operations" {
