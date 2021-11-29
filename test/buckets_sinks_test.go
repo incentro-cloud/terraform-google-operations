@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-func TestTerraformSinksExample(t *testing.T) {
+func TestTerraformBucketsSinksExample(t *testing.T) {
 	projectId := os.Getenv("PROJECT_ID")
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../examples/buckets",
+		TerraformDir: "../examples/buckets_sinks",
 		Vars: map[string]interface{}{
 			"project_id": projectId,
 		},

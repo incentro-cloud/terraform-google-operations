@@ -14,3 +14,9 @@ variable "sinks" {
   description = "The log sinks."
   default     = []
 }
+
+variable "services" {
+  type        = any
+  description = "The custom services."
+  default     = []
+}

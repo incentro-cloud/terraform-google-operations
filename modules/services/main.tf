@@ -1,6 +1,6 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# LOG BUCKETS
-# Submodule for creating the log buckets.
+# CUSTOM SERVICES
+# Submodule for creating the custom services.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -23,14 +23,16 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# LOG BUCKETS
+# CUSTOM SERVICES
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "google_logging_project_bucket_config" "buckets" {
-  for_each       = { for bucket in var.buckets : bucket.bucket_id => bucket }
-  bucket_id      = each.value.bucket_id
-  project        = var.project_id
-  description    = each.value.description
-  location       = each.value.location
-  retention_days = each.value.retention_days
+resource "google_monitoring_custom_service" "services" {
+  for_each     = { for service in var.services : service.service_id => service }
+  service_id   = each.value.service_id
+  project      = var.project_id
+  display_name = each.value.display_name
+
+  telemetry {
+    resource_name = each.value.resource_name
+  }
 }
