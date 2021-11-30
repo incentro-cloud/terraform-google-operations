@@ -6,5 +6,4 @@ variable "project_id" {
 variable "services" {
   type        = any
   description = "The custom services."
-  default     = []
 }

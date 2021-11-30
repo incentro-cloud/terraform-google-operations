@@ -1,6 +1,6 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # OPERATIONS
-# Module for creating the log buckets, log sinks, services, SLOs, and alerts.
+# Module for creating the log buckets, log sinks, services, SLOs, and alert policies.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -113,4 +113,29 @@ module "slos" {
 
   project_id = var.project_id
   slos       = local.slos
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# ALERT POLICIES
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  policies = [
+    for policy in var.policies : {
+      display_name          = policy.display_name
+      combiner              = policy.combiner
+      conditions            = policy.conditions
+      enabled               = lookup(policy, "enabled", true)
+      notification_channels = lookup(policy, "notification_channels", [])
+      user_labels           = lookup(policy, "user_labels", null)
+      documentation         = lookup(policy, "documentation", null)
+    }
+  ]
+}
+
+module "policies" {
+  source = "./modules/policies"
+
+  project_id = var.project_id
+  policies   = local.policies
 }

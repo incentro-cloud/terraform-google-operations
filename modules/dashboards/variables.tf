@@ -6,5 +6,4 @@ variable "project_id" {
 variable "dashboards" {
   type        = any
   description = "The dashboards."
-  default     = []
 }

@@ -32,3 +32,9 @@ variable "slos" {
   description = "The SLOs."
   default     = []
 }
+
+variable "policies" {
+  type        = any
+  description = "The alert policies."
+  default     = []
+}

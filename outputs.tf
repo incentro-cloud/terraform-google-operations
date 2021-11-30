@@ -45,3 +45,8 @@ output "slos" {
   value       = module.slos.slos
   description = "The SLOs."
 }
+
+output "policies" {
+  value       = module.policies.policies
+  description = "The alert policies."
+}

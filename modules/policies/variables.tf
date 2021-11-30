@@ -3,7 +3,7 @@ variable "project_id" {
   description = "The project identifier."
 }
 
-variable "slos" {
+variable "policies" {
   type        = any
-  description = "The SLOs."
+  description = "The alert policies."
 }

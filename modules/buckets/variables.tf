@@ -6,5 +6,4 @@ variable "project_id" {
 variable "buckets" {
   type        = any
   description = "The log buckets."
-  default     = []
 }

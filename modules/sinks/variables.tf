@@ -6,5 +6,4 @@ variable "project_id" {
 variable "sinks" {
   type        = any
   description = "The log sinks."
-  default     = []
 }
