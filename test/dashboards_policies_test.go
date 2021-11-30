@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-func TestTerraformDashboardsExample(t *testing.T) {
+func TestTerraformDashboardsPoliciesExample(t *testing.T) {
 	projectId := os.Getenv("PROJECT_ID")
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../examples/dashboards",
+		TerraformDir: "../examples/dashboards_policies",
 		Vars: map[string]interface{}{
 			"project_id": projectId,
 		},

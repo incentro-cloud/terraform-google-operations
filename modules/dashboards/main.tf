@@ -27,7 +27,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "google_monitoring_dashboard" "dashboards" {
-  for_each       = { for dashboard in var.dashboards : jsondecode(dashboard.dashboard_json).displayName => dashboard }
+  for_each       = { for dashboard in var.dashboards : lower(jsondecode(dashboard.dashboard_json).displayName) => dashboard }
   project        = var.project_id
   dashboard_json = each.value.dashboard_json
 }

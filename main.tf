@@ -1,6 +1,6 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # OPERATIONS
-# Module for creating the log buckets, log sinks, services, SLOs, and alert policies.
+# Module for creating the log buckets, log sinks, custom services, SLOs, alert policies and monitoring groups.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -138,4 +138,26 @@ module "policies" {
 
   project_id = var.project_id
   policies   = local.policies
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# MONITORING GROUPS
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  groups = [
+    for group in var.groups : {
+      display_name = group.display_name
+      filter       = group.filter
+      parent_name  = lookup(group, "parent_name", null)
+      is_cluster   = lookup(group, "is_cluster", false)
+    }
+  ]
+}
+
+module "groups" {
+  source = "./modules/groups"
+
+  project_id = var.project_id
+  groups     = local.groups
 }

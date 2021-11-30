@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-func TestTerraformServicesSlosExample(t *testing.T) {
+func TestTerraformServicesSlosGroupsExample(t *testing.T) {
 	projectId := os.Getenv("PROJECT_ID")
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../examples/services_slos",
+		TerraformDir: "../examples/services_slos_groups",
 		Vars: map[string]interface{}{
 			"project_id": projectId,
 		},

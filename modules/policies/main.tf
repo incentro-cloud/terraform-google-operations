@@ -27,7 +27,7 @@ terraform {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "google_monitoring_alert_policy" "policies" {
-  for_each              = { for policy in var.policies : policy.display_name => policy }
+  for_each              = { for policy in var.policies : lower(policy.display_name) => policy }
   display_name          = each.value.display_name
   project               = var.project_id
   combiner              = each.value.combiner

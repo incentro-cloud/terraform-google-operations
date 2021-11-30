@@ -1,6 +1,6 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# LOG SINKS
-# Submodule for creating the log sinks.
+# MONITORING GROUPS
+# Submodule for creating the monitoring groups.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -23,14 +23,14 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# LOG SINKS
+# MONITORING GROUPS
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "google_logging_project_sink" "sinks" {
-  for_each               = { for sink in var.sinks : lower(sink.name) => sink }
-  name                   = each.value.name
-  project                = var.project_id
-  destination            = each.value.destination
-  filter                 = each.value.filter
-  unique_writer_identity = each.value.unique_writer_identity
+resource "google_monitoring_group" "groups" {
+  for_each     = { for group in var.groups : lower(group.display_name) => group }
+  display_name = each.value.display_name
+  project      = var.project_id
+  filter       = each.value.filter
+  parent_name  = each.value.parent_name
+  is_cluster   = each.value.is_cluster
 }

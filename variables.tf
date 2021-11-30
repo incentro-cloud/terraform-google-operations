@@ -38,3 +38,9 @@ variable "policies" {
   description = "The alert policies."
   default     = []
 }
+
+variable "groups" {
+  type        = any
+  description = "The monitoring groups."
+  default     = []
+}

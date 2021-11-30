@@ -18,13 +18,19 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# ALERT POLICIES
+# DASHBOARDS, ALERT POLICIES, AND MONITORING GROUPS
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "operations" {
   source = "../../"
 
   project_id = var.project_id
+
+  dashboards = [
+    {
+      dashboard_json = file("./assets/dashboard.json")
+    }
+  ]
 
   policies = [
     {
