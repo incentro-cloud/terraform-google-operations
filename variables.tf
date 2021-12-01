@@ -9,9 +9,9 @@ variable "buckets" {
   default     = []
 }
 
-variable "sinks" {
+variable "project_sinks" {
   type        = any
-  description = "The log sinks."
+  description = "The project log sinks."
   default     = []
 }
 

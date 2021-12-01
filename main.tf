@@ -27,25 +27,25 @@ module "buckets" {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# LOG SINKS
+# PROJECT LOG SINKS
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  sinks = [
-    for sink in var.sinks : {
-      name                   = sink.name
-      destination            = sink.destination
-      filter                 = lookup(sink, "filter", null)
-      unique_writer_identity = lookup(sink, "unique_writer_identity", true)
+  project_sinks = [
+    for project_sink in var.project_sinks : {
+      name                   = project_sink.name
+      destination            = project_sink.destination
+      filter                 = lookup(project_sink, "filter", null)
+      unique_writer_identity = lookup(project_sink, "unique_writer_identity", true)
     }
   ]
 }
 
-module "sinks" {
-  source = "./modules/sinks"
+module "project_sinks" {
+  source = "./modules/project_sinks"
 
-  project_id = var.project_id
-  sinks      = local.sinks
+  project_id    = var.project_id
+  project_sinks = local.project_sinks
 }
 
 # ---------------------------------------------------------------------------------------------------------------------

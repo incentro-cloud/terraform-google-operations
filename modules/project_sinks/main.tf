@@ -1,6 +1,6 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# LOG SINKS
-# Submodule for creating the log sinks.
+# PROJECT LOG SINKS
+# Submodule for creating the project log sinks.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -23,11 +23,11 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# LOG SINKS
+# PROJECT LOG SINKS
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "google_logging_project_sink" "sinks" {
-  for_each               = { for sink in var.sinks : lower(sink.name) => sink }
+resource "google_logging_project_sink" "project_sinks" {
+  for_each               = { for project_sink in var.project_sinks : lower(project_sink.name) => project_sink }
   name                   = each.value.name
   project                = var.project_id
   destination            = each.value.destination

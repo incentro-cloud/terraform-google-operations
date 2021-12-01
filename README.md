@@ -37,7 +37,7 @@ module "operations" {
     }
   ]
 
-  sinks = [
+  project_sinks = [
     {
       name                   = "required-logs"
       destination            = "logging.googleapis.com/projects/${var.project_id}/locations/global/buckets/required-logs"
