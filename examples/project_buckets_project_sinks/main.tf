@@ -18,7 +18,7 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# LOG BUCKETS AND LOG SINKS
+# PROJECT LOG BUCKETS AND PROJECT LOG SINKS
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "operations" {
@@ -26,7 +26,7 @@ module "operations" {
 
   project_id = var.project_id
 
-  buckets = [
+  project_buckets = [
     {
       bucket_id      = "required-logs"
       description    = "User-defined bucket for the required logs"

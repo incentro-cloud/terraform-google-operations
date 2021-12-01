@@ -3,9 +3,9 @@ variable "project_id" {
   description = "The project identifier."
 }
 
-variable "buckets" {
+variable "project_buckets" {
   type        = any
-  description = "The log buckets."
+  description = "The project log buckets."
   default     = []
 }
 

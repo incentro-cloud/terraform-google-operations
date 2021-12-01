@@ -1,6 +1,6 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# LOG BUCKETS
-# Submodule for creating the log buckets.
+# METRIC DESCRIPTORS
+# Submodule for creating the metric descriptors.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -23,14 +23,19 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# LOG BUCKETS
+# METRIC DESCRIPTORS
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "google_logging_project_bucket_config" "buckets" {
-  for_each       = { for bucket in var.buckets : bucket.bucket_id => bucket }
-  bucket_id      = each.value.bucket_id
-  project        = var.project_id
-  description    = each.value.description
-  location       = each.value.location
-  retention_days = each.value.retention_days
+resource "google_monitoring_metric_descriptor" "metric_descriptors" {
+  for_each     = { for metric_descriptor in var.metric_descriptors : lower(metric_descriptor.display_name) => metric_descriptor }
+  display_name = each.value.display_name
+  project      = var.project_id
+  description  = each.value.description
+  type         = each.value.type
+  metric_kind  = each.value.metric_kind
+  value_type   = each.value.value_type
+
+  labels {
+    key = ""
+  }
 }

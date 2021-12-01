@@ -4,26 +4,26 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
-# LOG BUCKETS
+# PROJECT LOG BUCKETS
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  buckets = [
-    for bucket in var.buckets : {
-      bucket_id      = bucket.bucket_id
+  project_buckets = [
+    for project_bucket in var.project_buckets : {
+      bucket_id      = project_bucket.bucket_id
       project        = var.project_id
-      description    = lookup(bucket, "description", null)
-      location       = lookup(bucket, "location", "global")
-      retention_days = lookup(bucket, "retention_days", 90)
+      description    = lookup(project_bucket, "description", null)
+      location       = lookup(project_bucket, "location", "global")
+      retention_days = lookup(project_bucket, "retention_days", 90)
     }
   ]
 }
 
-module "buckets" {
-  source = "./modules/buckets"
+module "project_buckets" {
+  source = "./modules/project_buckets"
 
-  project_id = var.project_id
-  buckets    = local.buckets
+  project_id      = var.project_id
+  project_buckets = local.project_buckets
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
