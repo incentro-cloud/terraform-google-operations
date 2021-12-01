@@ -1,6 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # OPERATIONS
-# Module for creating the log buckets, log sinks, custom services, SLOs, alert policies and monitoring groups.
+# Module for creating the log buckets, log sinks, custom services, SLOs, alert policies, monitoring groups,
+# and metric descriptors.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -160,4 +161,31 @@ module "groups" {
 
   project_id = var.project_id
   groups     = local.groups
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# MTERIC DESCRIPTORS
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  metric_descriptors = [
+    for metric_descriptor in var.metric_descriptors : {
+      display_name = metric_descriptor.display_name
+      description  = metric_descriptor.description
+      type         = metric_descriptor.type
+      metric_kind  = lookup(metric_descriptor, "metric_kind", "METRIC_KIND_UNSPECIFIED")
+      value_type   = metric_descriptor.value_type
+      unit         = lookup(metric_descriptor, "unit", null)
+      launch_stage = lookup(metric_descriptor, "launch_stage", null)
+      labels       = lookup(metric_descriptor, "labels", null)
+      metadata     = lookup(metric_descriptor, "metadata", null)
+    }
+  ]
+}
+
+module "metric_descriptors" {
+  source = "./modules/metric_descriptors"
+
+  project_id         = var.project_id
+  metric_descriptors = local.metric_descriptors
 }

@@ -34,8 +34,23 @@ resource "google_monitoring_metric_descriptor" "metric_descriptors" {
   type         = each.value.type
   metric_kind  = each.value.metric_kind
   value_type   = each.value.value_type
+  unit         = each.value.unit
+  launch_stage = each.value.launch_stage
 
-  labels {
-    key = ""
+  dynamic "labels" {
+    for_each = lookup(each.value, "labels") == null ? [] : [each.value.labels]
+    content {
+      key         = labels.value.key
+      value_type  = lookup(labels.value, "value_type", null)
+      description = lookup(labels.value, "description", null)
+    }
+  }
+
+  dynamic "metadata" {
+    for_each = lookup(each.value, "metadata") == null ? [] : [each.value.metadata]
+    content {
+      sample_period = lookup(metadata.value, "sample_period", null)
+      ingest_delay  = lookup(metadata.value, "ingest_delay", null)
+    }
   }
 }

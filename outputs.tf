@@ -50,3 +50,8 @@ output "policies" {
   value       = module.policies.policies
   description = "The alert policies."
 }
+
+output "metric_descriptors" {
+  value       = module.metric_descriptors.metric_descriptors
+  description = "The metric descriptors."
+}

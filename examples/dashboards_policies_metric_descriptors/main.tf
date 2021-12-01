@@ -18,7 +18,7 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# DASHBOARDS, ALERT POLICIES, AND MONITORING GROUPS
+# DASHBOARDS, ALERT POLICIES, AND METRIC DESCRIPTORS
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "operations" {
@@ -58,6 +58,17 @@ module "operations" {
       user_labels = {
         environment = "examples"
       }
+    }
+  ]
+
+  metric_descriptors = [
+    {
+      display_name = "Daily sales records"
+      description  = "Daily sales records from all branch stores."
+      type         = "custom.googleapis.com/stores/daily_sales"
+      metric_kind  = "GAUGE"
+      value_type   = "DOUBLE"
+      unit         = "{EUR}"
     }
   ]
 }

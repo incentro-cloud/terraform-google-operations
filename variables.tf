@@ -44,3 +44,9 @@ variable "groups" {
   description = "The monitoring groups."
   default     = []
 }
+
+variable "metric_descriptors" {
+  type        = any
+  description = "The metric descriptors."
+  default     = []
+}

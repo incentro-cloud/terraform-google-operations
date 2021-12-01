@@ -12,6 +12,7 @@ This module supports creating:
 - SLOs
 - Alert policies
 - Monitoring groups
+- Metric descriptors
 
 ## Example usage
 
@@ -109,6 +110,24 @@ module "operations" {
       user_labels = {
         environment = "examples"
       }
+    }
+  ]
+
+  groups = [
+    {
+      display_name = "Monitoring group"
+      filter       = "resource.metadata.region=\"europe-west1\""
+    }
+  ]
+
+  metric_descriptors = [
+    {
+      display_name = "Daily sales records"
+      description  = "Daily sales records from all branch stores."
+      type         = "custom.googleapis.com/stores/daily_sales"
+      metric_kind  = "GAUGE"
+      value_type   = "DOUBLE"
+      unit         = "{EUR}"
     }
   ]
 }
