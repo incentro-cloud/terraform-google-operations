@@ -45,8 +45,14 @@ variable "groups" {
   default     = []
 }
 
-variable "metric_descriptors" {
+variable "descriptors" {
   type        = any
   description = "The metric descriptors."
+  default     = []
+}
+
+variable "channels" {
+  type        = any
+  description = "The notification channels."
   default     = []
 }

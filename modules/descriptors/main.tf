@@ -26,8 +26,8 @@ terraform {
 # METRIC DESCRIPTORS
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "google_monitoring_metric_descriptor" "metric_descriptors" {
-  for_each     = { for metric_descriptor in var.metric_descriptors : lower(metric_descriptor.display_name) => metric_descriptor }
+resource "google_monitoring_metric_descriptor" "descriptors" {
+  for_each     = { for descriptor in var.descriptors : lower(descriptor.display_name) => descriptor }
   display_name = each.value.display_name
   project      = var.project_id
   description  = each.value.description

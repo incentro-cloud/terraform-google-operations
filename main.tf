@@ -1,7 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # OPERATIONS
 # Module for creating the log buckets, log sinks, custom services, SLOs, alert policies, monitoring groups,
-# and metric descriptors.
+# metric descriptors, and notification channels.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -168,24 +168,48 @@ module "groups" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 locals {
-  metric_descriptors = [
-    for metric_descriptor in var.metric_descriptors : {
-      display_name = metric_descriptor.display_name
-      description  = metric_descriptor.description
-      type         = metric_descriptor.type
-      metric_kind  = lookup(metric_descriptor, "metric_kind", "METRIC_KIND_UNSPECIFIED")
-      value_type   = metric_descriptor.value_type
-      unit         = lookup(metric_descriptor, "unit", null)
-      launch_stage = lookup(metric_descriptor, "launch_stage", null)
-      labels       = lookup(metric_descriptor, "labels", null)
-      metadata     = lookup(metric_descriptor, "metadata", null)
+  descriptors = [
+    for descriptor in var.descriptors : {
+      display_name = descriptor.display_name
+      description  = descriptor.description
+      type         = descriptor.type
+      metric_kind  = lookup(descriptor, "metric_kind", "METRIC_KIND_UNSPECIFIED")
+      value_type   = descriptor.value_type
+      unit         = lookup(descriptor, "unit", null)
+      launch_stage = lookup(descriptor, "launch_stage", null)
+      labels       = lookup(descriptor, "labels", null)
+      metadata     = lookup(descriptor, "metadata", null)
     }
   ]
 }
 
-module "metric_descriptors" {
-  source = "./modules/metric_descriptors"
+module "descriptors" {
+  source = "./modules/descriptors"
 
-  project_id         = var.project_id
-  metric_descriptors = local.metric_descriptors
+  project_id  = var.project_id
+  descriptors = local.descriptors
+}
+
+# ---------------------------------------------------------------------------------------------------------------------
+# NOTIFICATION CHANNELS
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  channels = [
+    for channel in var.channels : {
+      type             = channel.type
+      display_name     = channel.display_name
+      description      = lookup(channel, "description", null)
+      labels           = lookup(channel, "labels", null)
+      user_labels      = lookup(channel, "user_labels", null)
+      sensitive_labels = lookup(channel, "sensitive_labels", null)
+    }
+  ]
+}
+
+module "channels" {
+  source = "./modules/channels"
+
+  project_id = var.project_id
+  channels   = local.channels
 }

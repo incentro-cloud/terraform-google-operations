@@ -51,7 +51,12 @@ output "policies" {
   description = "The alert policies."
 }
 
-output "metric_descriptors" {
-  value       = module.metric_descriptors.metric_descriptors
+output "descriptors" {
+  value       = module.descriptors.descriptors
   description = "The metric descriptors."
+}
+
+output "channels" {
+  value       = module.channels.channels
+  description = "The notification channels."
 }

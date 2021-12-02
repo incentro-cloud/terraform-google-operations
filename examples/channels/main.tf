@@ -18,7 +18,7 @@ terraform {
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
-# CUSTOM SERVICES, SLOs, AND MONITORING GROUPS
+# NOTIFICATION CHANNELS
 # ---------------------------------------------------------------------------------------------------------------------
 
 module "operations" {
@@ -26,35 +26,13 @@ module "operations" {
 
   project_id = var.project_id
 
-  services = [
+  channels = [
     {
-      service_id   = "custom-service"
-      display_name = "Custom service"
-    }
-  ]
-
-  slos = [
-    {
-      service      = module.operations.services["custom-service"].service_id
-      slo_id       = "consumed-api-slo"
-      display_name = "SLO with request based SLI (good total ratio)"
-
-      goal                = 0.9
-      rolling_period_days = 30
-
-      request_based_sli = {
-        distribution_cut = {
-          distribution_filter = "metric.type=\"serviceruntime.googleapis.com/api/request_latencies\" resource.type=\"api\""
-          max                 = 0.5
-        }
+      display_name = "Notification Channel"
+      type         = "email"
+      labels = {
+        email_address = "fake_email@blahblah.com"
       }
-    }
-  ]
-
-  groups = [
-    {
-      display_name = "Monitoring group"
-      filter       = "resource.metadata.region=\"europe-west1\""
     }
   ]
 }

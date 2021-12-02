@@ -2,7 +2,7 @@
 
 ![Cloud Build status](https://badger-tcppdqobjq-ew.a.run.app/build/status?project=examples-331911&id=55a9baae-ec58-4762-afce-b2274da03f5f "Cloud Build status")
 
-Module for creating the log buckets, log sinks, custom services, SLOs, alert policies and monitoring groups.
+Module for creating the log buckets, log sinks, custom services, SLOs, alert policies, monitoring groups, metric descriptors, and notification channels.
 
 This module supports creating:
 
@@ -13,6 +13,7 @@ This module supports creating:
 - Alert policies
 - Monitoring groups
 - Metric descriptors
+- Notification channels
 
 ## Example usage
 
@@ -128,6 +129,16 @@ module "operations" {
       metric_kind  = "GAUGE"
       value_type   = "DOUBLE"
       unit         = "{EUR}"
+    }
+  ]
+
+  channels = [
+    {
+      display_name = "Notification Channel"
+      type         = "email"
+      labels = {
+        email_address = "fake_email@blahblah.com"
+      }
     }
   ]
 }

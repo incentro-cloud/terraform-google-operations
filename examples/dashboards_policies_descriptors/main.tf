@@ -61,7 +61,7 @@ module "operations" {
     }
   ]
 
-  metric_descriptors = [
+  descriptors = [
     {
       display_name = "Daily sales records"
       description  = "Daily sales records from all branch stores."
