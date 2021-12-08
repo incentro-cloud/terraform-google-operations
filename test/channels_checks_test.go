@@ -6,11 +6,11 @@ import (
 	"testing"
 )
 
-func TestTerraformChannelsExample(t *testing.T) {
+func TestTerraformChannelsChecksExample(t *testing.T) {
 	projectId := os.Getenv("PROJECT_ID")
 
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../examples/channels",
+		TerraformDir: "../examples/channels_checks",
 		Vars: map[string]interface{}{
 			"project_id": projectId,
 		},

@@ -60,3 +60,8 @@ output "channels" {
   value       = module.channels.channels
   description = "The notification channels."
 }
+
+output "checks" {
+  value       = module.checks.checks
+  description = "The uptime checks."
+}
