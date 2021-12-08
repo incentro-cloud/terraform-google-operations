@@ -213,3 +213,30 @@ module "channels" {
   project_id = var.project_id
   channels   = local.channels
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# UPTIME CHECKS
+# ---------------------------------------------------------------------------------------------------------------------
+
+locals {
+  checks = [
+    for check in var.checks : {
+      display_name       = check.display_name
+      timeout            = check.timeout
+      period             = lookup(check, "period", null)
+      selected_regions   = lookup(check, "selected_regions", [])
+      content_matchers   = lookup(check, "content_matchers", null)
+      http_check         = lookup(check, "http_check", null)
+      tcp_check          = lookup(check, "tcp_check", null)
+      resource_group     = lookup(check, "resource_group", null)
+      monitored_resource = lookup(check, "monitored_resource", null)
+    }
+  ]
+}
+
+module "checks" {
+  source = "./modules/checks"
+
+  project_id = var.project_id
+  checks     = local.checks
+}

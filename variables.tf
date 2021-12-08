@@ -56,3 +56,9 @@ variable "channels" {
   description = "The notification channels."
   default     = []
 }
+
+variable "checks" {
+  type        = any
+  description = "The uptime checks."
+  default     = []
+}

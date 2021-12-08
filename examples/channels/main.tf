@@ -35,4 +35,25 @@ module "operations" {
       }
     }
   ]
+
+  checks = [
+    {
+      display_name = "https-uptime-check"
+      timeout      = "60s"
+
+      http_check = {
+        path         = "/nl-nl"
+        port         = "443"
+        use_ssl      = true
+        validate_ssl = true
+      }
+
+      monitored_resource = {
+        type = "uptime_url"
+        labels = {
+          host       = "www.incentro.com"
+        }
+      }
+    }
+  ]
 }
