@@ -6,12 +6,12 @@ define TF_VARS
 -var="project_id=$(PROJECT_ID)"
 endef
 
-# Run checkov
+# Run checkov.
 .PHONY: checkov
 checkov:
 	checkov --directory . \
 
-# Run checkov on the plan
+# Run checkov on the plan.
 .PHONY: checkov_plan
 checkov_plan:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
@@ -21,7 +21,7 @@ checkov_plan:
 	checkov --file tf.json --skip-framework cloudformation; \
 	rm tf.json
 
-# Destroy all remote objects
+# Destroy all remote objects.
 .PHONY: go_test
 go_test:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
@@ -29,48 +29,48 @@ go_test:
 	cd test; \
 	go test -v
 
-# Initialize the workspace
+# Initialize the workspace.
 .PHONY: tf_init
 tf_init:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
 	cd terraform; \
 	terraform init -backend-config="bucket=$(PROJECT_ID)-tfstate"
 
-# Validate the configuration files
+# Validate the configuration files.
 .PHONY: tf_validate
 tf_validate:
 	cd terraform; \
 	terraform validate
 
-# Check the providers
+# Check the providers.
 .PHONY: tf_providers
 tf_providers:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
 	cd terraform; \
 	terraform providers
 
-# Check the outputs
+# Check the outputs.
 .PHONY: tf_output
 tf_output:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
 	cd terraform; \
 	terraform output
 
-# Refresh
+# Refresh.
 .PHONY: tf_refresh
 tf_refresh:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
 	cd terraform; \
 	terraform refresh $(TF_VARS)
 
-# Create an execution plan
+# Create an execution plan.
 .PHONY: tf_plan
 tf_plan:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
 	cd terraform; \
 	terraform plan -out=tf.plan $(TF_VARS)
 
-# Execute the plan
+# Execute the plan.
 .PHONY: tf_apply
 tf_apply:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
@@ -78,7 +78,7 @@ tf_apply:
 	terraform apply tf.plan; \
 	rm tf.plan
 
-# Destroy all remote objects
+# Destroy all remote objects.
 .PHONY: tf_destroy
 tf_destroy:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
