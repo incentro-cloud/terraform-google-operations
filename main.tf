@@ -12,7 +12,6 @@ locals {
   project_buckets = [
     for project_bucket in var.project_buckets : {
       bucket_id      = project_bucket.bucket_id
-      project        = var.project_id
       description    = lookup(project_bucket, "description", null)
       location       = lookup(project_bucket, "location", "global")
       retention_days = lookup(project_bucket, "retention_days", 90)
