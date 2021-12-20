@@ -1,9 +1,9 @@
 variable "project_id" {
   type        = string
-  description = "The project identifier."
+  description = "Required. The project identifier."
 }
 
 variable "project_buckets" {
   type        = any
-  description = "The project log buckets."
+  description = "Required. The project log buckets."
 }

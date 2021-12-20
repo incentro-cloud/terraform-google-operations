@@ -2,7 +2,7 @@
 
 ![Cloud Build status](https://badger-tcppdqobjq-ew.a.run.app/build/status?project=examples-331911&id=55a9baae-ec58-4762-afce-b2274da03f5f "Cloud Build status")
 
-Module for creating the log buckets, log sinks, custom services, SLOs, alert policies, monitoring groups, metric descriptors, and notification channels.
+Module for creating the project log buckets, project log sinks, custom services, SLOs, alert policies, monitoring groups, metric descriptors, notification channels, and uptime checks.
 
 This module supports creating:
 
@@ -165,3 +165,21 @@ module "operations" {
   ]
 }
 ```
+
+## Inputs
+
+Most inputs map to the supported arguments. Links to the official documentation are included.
+
+### Project log buckets
+
+Submodule for creating the project log buckets.
+
+[Click here](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/logging_project_bucket_config "google_logging_project_bucket_config") for the **google_logging_project_bucket_config** documentation.
+
+| Name             | Type     | Default | Description                                                                                                         |
+|------------------|----------|---------|---------------------------------------------------------------------------------------------------------------------|
+| `project_id`     | string   |         | Required. The project identifier.                                                                                   |
+| `bucket_id`      | string   |         | Required. The location of the project log bucket.                                                                   |
+| `description`    | string   | null    | Optional. The name of the project log bucket.                                                                       |
+| `location`       | string   | global  | Optional. The description of the project log bucket.                                                                |
+| `retention_days` | number   | 90      | Optional. Logs will be retained by default for this amount of time, after which they will automatically be deleted. |
