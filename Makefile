@@ -27,14 +27,14 @@ go_test:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
 	export PROJECT_ID=$(PROJECT_ID); \
 	cd test; \
-	go test -v
+	go test -v -timeout 1h
 
 # Initialize the workspace.
 .PHONY: tf_init
 tf_init:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
 	cd terraform; \
-	terraform init -backend-config="bucket=$(PROJECT_ID)-tfstate"
+	terraform init -backend-config="bucket=$(PROJECT_ID)-tfstate-cloud"
 
 # Validate the configuration files.
 .PHONY: tf_validate
@@ -56,7 +56,7 @@ tf_output:
 	cd terraform; \
 	terraform output
 
-# Refresh.
+# Refresh state.
 .PHONY: tf_refresh
 tf_refresh:
 	export GOOGLE_APPLICATION_CREDENTIALS=$(GOOGLE_APPLICATION_CREDENTIALS); \
